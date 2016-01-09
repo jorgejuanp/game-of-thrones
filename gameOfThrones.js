@@ -1,14 +1,29 @@
-var fs = require('fs');
-function fileActions(err, file) {
-  if (err) {
-    throw err;
+var gotApp = function() {
+  var fs = require('fs');
+
+  function fileActions(err, file) {
+    if (err) {
+      throw err;
+    }
+
+    var episodes = JSON.parse(file);
+
+    episodes.forEach(function(episode) {
+      var numberOfStars = Math.floor(episode.rating);
+      var stars = ' *';
+      while(numberOfStars > 0) {
+        stars += '*';
+        numberOfStars--;
+      }
+
+      console.log(
+        'Title: ' + episode.title + ' - Episode #' + episode.episode_number + "\r\n"
+        + episode.description + "\r\n"
+        + 'Rating: ' + episode.rating + stars + "\r\n"
+      );
+    });
   }
-  var episodes = JSON.parse(file);
-  for(var i = 0; i < episodes.length; i++) {
-    console.log('Title: ' + episodes[i].title + ' - Episode #' + episodes[i].episode_number);
-    console.log(episodes[i].description);
-    console.log('Rating: ' + episodes[i].rating);
-    console.log('');
-  }
+  fs.readFile("./GoTEpisodes.json", 'utf8', fileActions);
 }
-fs.readFile("./GoTEpisodes.json", 'utf8', fileActions);
+
+gotApp();
