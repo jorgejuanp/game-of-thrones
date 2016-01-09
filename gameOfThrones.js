@@ -16,6 +16,20 @@ var gotApp = function() {
     });
 
     showEpisodes(worstEpisodes);
+    searchFor('Jon Snow', episodes);
+  }
+
+  function searchFor(name, array) {
+    array.forEach(function(episode) {
+      var str = episode.description;
+      var idx = str.indexOf(name);
+      if(idx !== -1){
+        console.log(name + ' appears on episode ' + episode.episode_number);
+      }else{
+        console.log(name + ' is not there!');
+      }
+    })
+
   }
 
   function showEpisodes(episodes) {
