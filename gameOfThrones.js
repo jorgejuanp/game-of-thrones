@@ -7,11 +7,18 @@ var gotApp = function() {
     }
 
     var episodes = JSON.parse(file);
-
     var newEpisodes = episodes.sort(function(a, b){
       return a.episode_number-b.episode_number
     });
 
+    var worstEpisodes = newEpisodes.filter(function (episode) {
+      return episode.rating < 8.5
+    });
+
+    showEpisodes(worstEpisodes);
+  }
+
+  function showEpisodes(episodes) {
     episodes.forEach(function(episode) {
       var numberOfStars = Math.floor(episode.rating);
       var stars = ' *';
@@ -27,6 +34,7 @@ var gotApp = function() {
       );
     });
   }
+
   fs.readFile("./GoTEpisodes.json", 'utf8', fileActions);
 }
 
