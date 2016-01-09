@@ -8,6 +8,10 @@ var gotApp = function() {
 
     var episodes = JSON.parse(file);
 
+    var newEpisodes = episodes.sort(function(a, b){
+      return a.episode_number-b.episode_number
+    });
+
     episodes.forEach(function(episode) {
       var numberOfStars = Math.floor(episode.rating);
       var stars = ' *';
